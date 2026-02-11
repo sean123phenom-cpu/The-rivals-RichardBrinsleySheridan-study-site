@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Rivals | Sean The Great Study Guide</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<style>
+    /* --- RESET & VARIABLES --- */
+    :root {
+        --primary: #2c3e50;
+        --accent: #4CAF50;
+        --bg-grad: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        --glass: rgba(255, 255, 255, 0.95);
+        --shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+        font-family: 'Poppins', sans-serif;
+        background: var(--bg-grad);
+        color: #333;
+        line-height: 1.6;
+        padding-top: 80px;
+    }
+
+    h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--primary); }
+    h2 { font-size: 2.2rem; margin-bottom: 25px; position: relative; display: inline-block; }
+    h2::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin-top: 8px; border-radius: 2px; }
+
+    /* --- NAVIGATION --- */
+    nav {
+        position: fixed; top: 0; width: 100%; background: var(--glass); backdrop-filter: blur(10px);
+        padding: 15px 30px; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+        display: flex; justify-content: space-between; align-items: center;
+    }
+    .logo { font-weight: 700; font-size: 1.2rem; color: var(--primary); text-transform: uppercase; letter-spacing: 1px; }
+    nav ul { list-style: none; display: flex; gap: 25px; }
+    nav ul li a { text-decoration: none; color: var(--primary); font-weight: 500; font-size: 0.95rem; transition: color 0.3s; }
+    nav ul li a:hover { color: var(--accent); }
+
+    /* --- LAYOUT --- */
+    section { max-width: 1000px; margin: 0 auto 80px; padding: 0 20px; opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+    section.visible { opacity: 1; transform: translateY(0); }
+
+    /* --- CARDS --- */
+    .card {
+        background: white; padding: 30px; border-radius: 16px; box-shadow: var(--shadow); margin-bottom: 25px;
+        transition: transform 0.3s ease; border-left: 5px solid transparent;
+    }
+    .card:hover { transform: translateY(-5px); border-left-color: var(--accent); }
+    .card h3 { font-size: 1.4rem; margin-bottom: 10px; color: var(--primary); }
+    .card p { margin-bottom: 10px; }
+    .quote-box { background: #f9f9f9; padding: 15px; border-left: 4px solid #888; margin: 15px 0; font-style: italic; }
+
+    /* --- QUIZ STYLES --- */
+    .quiz-question { margin-bottom: 20px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+    .option-btn {
+        display: block; width: 100%; text-align: left; padding: 12px 15px; margin: 8px 0;
+        border: 2px solid #eee; border-radius: 8px; background: white; cursor: pointer; font-size: 0.95rem; transition: all 0.2s;
+    }
+    .option-btn:hover:not(:disabled) { background: #f9f9f9; border-color: #ddd; }
+    .correct { background: #d4edda !important; border-color: #c3e6cb !important; color: #155724; }
+    .wrong { background: #f8d7da !important; border-color: #f5c6cb !important; color: #721c24; }
+    .option-btn:disabled { cursor: default; opacity: 0.8; }
+
+    /* --- BUTTONS --- */
+    .btn {
+        background: var(--accent); color: white; padding: 12px 25px; border: none; border-radius: 50px;
+        cursor: pointer; font-weight: 600; box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3); transition: background 0.3s;
+        display: inline-block; margin-top: 15px;
+    }
+    .btn:hover { background: #388E3C; }
+    .score-box { font-size: 1.2rem; font-weight: bold; color: var(--primary); padding: 20px; background: #fff; border-radius: 12px; text-align: center; margin-top: 20px; box-shadow: var(--shadow); }
+
+    footer { text-align: center; padding: 40px; background: var(--primary); color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+
+    @media (max-width: 768px) {
+        nav { flex-direction: column; padding: 15px; }
+        nav ul { margin-top: 15px; gap: 15px; flex-wrap: wrap; justify-content: center; }
+    }
+</style>
+</head>
+<body>
+
+<nav>
+    <div class="logo">Sean The Great</div>
+    <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#summaries">Summaries</a></li>
+        <li><a href="#quotes">Quotes</a></li>
+        <li><a href="#quiz">Quiz</a></li>
+    </ul>
+</nav>
+
+<section id="home">
+    <div class="card" style="text-align: center; border-left: none;">
+        <h1 style="font-size: 3rem; margin-bottom: 10px;">The Rivals</h1>
+        <p style="font-style: italic; color: #666; margin-bottom: 20px;">by Richard Brinsley Sheridan (1775)</p>
+        <p><strong>Comprehensive University Study Guide</strong></p>
+        <p>Detailed Summaries, Character Analysis, Key Quotes, and a 30-Question Exam Prep Quiz.</p>
+        <button class="btn" onclick="downloadPDF()">Download Full PDF Notes</button>
+    </div>
+</section>
+
+<section id="summaries">
+    <h2>Act-by-Act Breakdown</h2>
+    
+    <div class="card">
+        <h3>Act I: The Setup</h3>
+        <p><strong>Scene 1:</strong> A street in Bath. Fag (Captain Absolute’s servant) meets Thomas (Sir Anthony’s coachman). They discuss the Captain's deception: he is posing as "Ensign Beverley" to woo Lydia Languish, a wealthy heiress who is obsessed with sentimental novels and refuses to marry a rich man.</p>
+        <p><strong>Scene 2:</strong> Lydia’s dressing room. Lydia complains to her maid, Lucy, about her aunt, Mrs. Malaprop. We see Lydia hiding her "scandalous" romance novels. Mrs. Malaprop enters and berates Lydia for reading "trash," showcasing her famous malapropisms (misusing words). Sir Anthony arrives to arrange a marriage for his son (Jack Absolute) to Lydia, not knowing Jack is already wooing her as Beverley.</p>
+    </div>
+
+    <div class="card">
+        <h3>Act II: The Conflict</h3>
+        <p><strong>Scene 1:</strong> Jack Absolute’s lodgings. Faulkland (the neurotic lover) worries excessively about his beloved, Julia. Bob Acres arrives, complaining about a rival for Lydia’s hand (Beverley). Sir Anthony arrives and demands Jack marry a woman of his choosing. Jack refuses (not knowing it's Lydia), leading to a furious argument where Sir Anthony disowns him.</p>
+        <p><strong>Scene 2:</strong> Jack discovers the "chosen wife" is actually Lydia. He is overjoyed but realizes he must keep up the "Beverley" disguise to satisfy Lydia’s romantic whims.</p>
+    </div>
+
+    <div class="card">
+        <h3>Act III: The Deception Deepens</h3>
+        <p><strong>Scene 1:</strong> The North Parade. Jack (as himself) reconciles with his father, pretending to be a dutiful son. Sir Anthony is suspicious of the sudden change but happy.</p>
+        <p><strong>Scene 2:</strong> Julia’s dressing room. Faulkland torments Julia with doubts about her love, showing his insecurity. </p>
+        <p><strong>Scene 3:</strong> Mrs. Malaprop’s lodgings. Jack (as himself) visits Mrs. Malaprop. She complains about "Beverley." Jack reads a letter "Beverley" wrote that insults Mrs. Malaprop (calling her an "old weather-beaten she-dragon"), pretending to be shocked by it. He gains permission to woo Lydia.</p>
+    </div>
+
+    <div class="card">
+        <h3>Act IV: The Challenge</h3>
+        <p><strong>Scene 1:</strong> Acres decides to challenge "Ensign Beverley" to a duel for stealing Lydia, encouraged by the fiery Sir Lucius O’Trigger. He writes a challenge letter.</p>
+        <p><strong>Scene 2:</strong> Mrs. Malaprop’s lodgings. Jack visits Lydia. She thinks he is Beverley who has snuck in. Sir Anthony arrives. Jack tries to hide his face, but is eventually exposed as both Jack Absolute AND Ensign Beverley. Lydia is furious—not because he lied, but because the "romantic poverty" she dreamed of was a lie. She wanted a forbidden love, not a socially acceptable marriage.</p>
+    </div>
+
+    <div class="card">
+        <h3>Act V: The Resolution</h3>
+        <p><strong>Scene 1:</strong> Julia and Faulkland argue again; she finally loses patience with his jealousy.</p>
+        <p><strong>Scene 2:</strong> King’s Mead Fields (The Duel). Sir Lucius and Acres await Beverley. Jack and Faulkland arrive. Acres is terrified when he realizes his rival is his friend Jack. Sir Anthony and the ladies arrive to stop the fight. <br><br>
+        <strong>Conclusion:</strong>
+        <ul>
+            <li>Jack and Lydia reconcile (she accepts reality over romance).</li>
+            <li>Faulkland and Julia reconcile (he promises to stop being jealous).</li>
+            <li>Mrs. Malaprop is exposed but forgiven.</li>
+            <li>Bob Acres decides he prefers being alive to being honorable.</li>
+        </ul>
+        </p>
+    </div>
+</section>
+
+<section id="quotes">
+    <h2>Key Quotes & Analysis</h2>
+    <div class="card">
+        <h3>Mrs. Malaprop (Language & Pretension)</h3>
+        <div class="quote-box">"He is the very pineapple of politeness!"</div>
+        <p><strong>Analysis:</strong> She means "pinnacle." This error exposes her desire to appear upper-class and educated, while actually revealing her lack of true sophistication.</p>
+        
+        <div class="quote-box">"She's as headstrong as an allegory on the banks of the Nile."</div>
+        <p><strong>Analysis:</strong> She means "alligator." A classic malapropism mixing a literary term with an animal.</p>
+    </div>
+
+    <div class="card">
+        <h3>Lydia Languish (Romantic Idealism)</h3>
+        <div class="quote-box">"How persuasive are his words! how charming will poverty be with him!"</div>
+        <p><strong>Analysis:</strong> Shows her delusion. She views poverty as an aesthetic or a romantic adventure, highlighting her privilege and naivety.</p>
+    </div>
+
+    <div class="card">
+        <h3>Sir Lucius O'Trigger (Honor Culture)</h3>
+        <div class="quote-box">"The quarrel is a very pretty quarrel as it stands; we should only spoil it by trying to explain it."</div>
+        <p><strong>Analysis:</strong> Satirizes the absurdity of dueling. The form of the argument matters more than the actual reason or truth.</p>
+    </div>
+</section>
+
+<section id="quiz">
+    <h2>Exam Prep Quiz (30 Questions)</h2>
+    <div class="card">
+        <div id="quizContainer"></div>
+        <div id="scoreBox" class="score-box" style="display:none;"></div>
+        <button class="btn" onclick="resetQuiz()" style="background: #777; margin-top:20px;">Reset Quiz</button>
+    </div>
+</section>
+
+<footer>
+    <p>© 2026 Sean The Great | Digital Literature Educator</p>
+</footer>
+
+<script>
+// ANIMATION
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add("visible"); });
+}, { threshold: 0.15 });
+document.querySelectorAll("section").forEach(section => observer.observe(section));
+
+// QUIZ DATA (30 QUESTIONS)
+const quizData = [
+    {q:"Who disguises himself as Ensign Beverley?",o:["Jack Absolute","Faulkland","Sir Anthony","Acres"],a:"Jack Absolute"},
+    {q:"Mrs. Malaprop is famous for misusing?",o:["Money","Weapons","Words","Authority"],a:"Words"},
+    {q:"What literary genre is The Rivals?",o:["Tragedy","Epic Poem","Comedy of Manners","Gothic Horror"],a:"Comedy of Manners"},
+    {q:"Lydia Languish is obsessed with?",o:["Sentimental Novels","Politics","French Fashion","Gardening"],a:"Sentimental Novels"},
+    {q:"Which city is the play set in?",o:["London","Bath","Dublin","Verona"],a:"Bath"},
+    {q:"Faulkland's primary flaw is?",o:["Greed","Cowardice","Excessive Jealousy","Dishonesty"],a:"Excessive Jealousy"},
+    {q:"What does the duel scene satirize?",o:["War","Honour Culture","Fencing Skills","The Law"],a:"Honour Culture"},
+    {q:"Who is Lydia's guardian?",o:["Sir Anthony","Lady Sneerwell","Mrs. Malaprop","Julia"],a:"Mrs. Malaprop"},
+    {q:"Jack Absolute is the son of?",o:["Sir Lucius","Sir Anthony","Bob Acres","Fag"],a:"Sir Anthony"},
+    {q:"How does the play end?",o:["Tragic death","Unresolved cliffhanger","Romantic Reconciliation","A war starts"],a:"Romantic Reconciliation"},
+    {q:"Which character challenges 'Beverley' to a duel?",o:["Bob Acres","Sir Anthony","Faulkland","David"],a:"Bob Acres"},
+    {q:"What does Mrs. Malaprop call an alligator?",o:["An allegory","A lizard","A dragon","A monster"],a:"An allegory"},
+    {q:"Who is Jack Absolute's servant?",o:["David","Thomas","Fag","Lucy"],a:"Fag"},
+    {q:"Why does Lydia want to marry a poor man?",o:["To save money","For romantic rebellion","She hates money","Her father said so"],a:"For romantic rebellion"},
+    {q:"Who is the Irish fortune hunter?",o:["Sir Lucius O'Trigger","Bob Acres","Faulkland","Jack"],a:"Sir Lucius O'Trigger"},
+    {q:"What does 'Malaprop' come from?",o:["Malaria","Malapropos (inappropriate)","Malicious","Lady Macbeth"],a:"Malapropos (inappropriate)"},
+    {q:"Who acts as the go-between delivering letters?",o:["Lucy","Fag","Thomas","Julia"],a:"Lucy"},
+    {q:"Sir Anthony represents which archetype?",o:["The tyrannical father","The young lover","The fool","The trickster"],a:"The tyrannical father"},
+    {q:"What does Faulkland believe about love?",o:["It should be easy","It requires constant anxiety","It is for fools","It is financial"],a:"It requires constant anxiety"},
+    {q:"Where does the duel take place?",o:["The Royal Crescent","King's Mead Fields","The Pump Room","London"],a:"King's Mead Fields"},
+    {q:"What pseudonym does Mrs. Malaprop use in letters?",o:["Delia","Celia","Queen Mab","Lucretia"],a:"Delia"},
+    {q:"Why is Sir Anthony angry with Jack in Act II?",o:["Jack spent all his money","Jack refuses to marry blindly","Jack joined the army","Jack insulted him"],a:"Jack refuses to marry blindly"},
+    {q:"Bob Acres tries to adopt a new method of?",o:["Dancing","Swearing (Referential Oaths)","Singing","Cooking"],a:"Swearing (Referential Oaths)"},
+    {q:"Who says 'I love to be in love'?",o:["Lydia","Julia","Mrs. Malaprop","Jack"],a:"Lydia"},
+    {q:"The play was first performed in?",o:["1775","1800","1605","1920"],a:"1775"},
+    {q:"Which character is the voice of reason/moderation?",o:["Julia","Lydia","Mrs. Malaprop","Acres"],a:"Julia"},
+    {q:"Sheridan was a member of?",o:["The Army","Parliament","The Clergy","The Royal Family"],a:"Parliament"},
+    {q:"What reveals Jack's identity to Lydia?",o:["Sir Anthony introduces him","He confesses","A letter is found","Lucy tells her"],a:"Sir Anthony introduces him"},
+    {q:"Does the duel actually happen?",o:["Yes, one dies","Yes, both wounded","No, it is stopped","They fight with fists"],a:"No, it is stopped"},
+    {q:"The 'Rivals' in the title refers to?",o:["Jack vs Beverley (himself)","Jack vs Faulkland","Lydia vs Julia","Acres vs Lucius"],a:"Jack vs Beverley (himself)"}
+];
+
+let score = 0;
+let answeredCount = 0;
+
+function initQuiz() {
+    const container = document.getElementById("quizContainer");
+    container.innerHTML = "";
+    score = 0;
+    answeredCount = 0;
+    document.getElementById("scoreBox").style.display = "none";
+
+    quizData.forEach((item, index) => {
+        const qDiv = document.createElement("div");
+        qDiv.classList.add("quiz-question");
+        
+        const qTitle = document.createElement("p");
+        qTitle.innerHTML = `<strong>${index + 1}. ${item.q}</strong>`;
+        qTitle.style.marginBottom = "10px";
+        qDiv.appendChild(qTitle);
+
+        item.o.forEach(option => {
+            const btn = document.createElement("button");
+            btn.classList.add("option-btn");
+            btn.innerText = option;
+            btn.onclick = () => checkAnswer(btn, item.a, qDiv);
+            qDiv.appendChild(btn);
+        });
+        container.appendChild(qDiv);
+    });
+}
+
+function checkAnswer(selectedBtn, correctVal, parentDiv) {
+    const allBtns = parentDiv.querySelectorAll("button");
+    allBtns.forEach(btn => btn.disabled = true);
+
+    if (selectedBtn.innerText === correctVal) {
+        selectedBtn.classList.add("correct");
+        score++;
+    } else {
+        selectedBtn.classList.add("wrong");
+        allBtns.forEach(btn => { if (btn.innerText === correctVal) btn.classList.add("correct"); });
+    }
+    answeredCount++;
+    updateScoreDisplay();
+}
+
+function updateScoreDisplay() {
+    const scoreBox = document.getElementById("scoreBox");
+    scoreBox.style.display = "block";
+    scoreBox.innerHTML = `Current Score: ${score} / ${quizData.length}`;
+    if (answeredCount === quizData.length) {
+        let msg = score >= 25 ? "Outstanding! You are ready for the exam." : "Good practice. Review the summaries again.";
+        scoreBox.innerHTML += `<br><span style="color:var(--accent);">${msg}</span>`;
+    }
+}
+
+function resetQuiz() {
+    initQuiz();
+    document.getElementById("quiz").scrollIntoView({behavior: "smooth"});
+}
+
+function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const margin = 15;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const maxTextWidth = pageWidth - (margin * 2);
+
+    doc.setFont("times", "bold");
+    doc.setFontSize(20);
+    doc.text("The Rivals - Complete Study Guide", margin, 20);
+    
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text("Generated by Sean The Great", margin, 26);
+    doc.line(margin, 30, pageWidth - margin, 30);
+
+    let yPos = 40;
+
+    const addText = (text, isHeader = false) => {
+        if (yPos > 270) { doc.addPage(); yPos = 20; }
+        doc.setFont("times", isHeader ? "bold" : "normal");
+        doc.setFontSize(isHeader ? 14 : 11);
+        const wrapped = doc.splitTextToSize(text, maxTextWidth);
+        doc.text(wrapped, margin, yPos);
+        yPos += (wrapped.length * 5) + (isHeader ? 5 : 10);
+    };
+
+    addText("Act Summaries", true);
+    addText("Act I: Setup. Jack poses as Beverley. Mrs. Malaprop scolds Lydia. Sir Anthony arranges marriage.");
+    addText("Act II: Conflict. Jack defies his father, then realizes the arranged wife is Lydia.");
+    addText("Act III: Deception. Jack wins over Mrs. Malaprop by tricking her with her own letters.");
+    addText("Act IV: Duel. Bob Acres challenges Beverley. Jack is exposed as Beverley to Lydia.");
+    addText("Act V: Resolution. The duel is stopped. Couples reconcile. Malaprop forgiven.");
+
+    addText("Key Themes", true);
+    addText("1. Romantic Idealism: Lydia's love for poverty is mocked.\n2. Language: Malapropisms reveal class anxiety.\n3. Honour: The duel is shown as ridiculous.");
+
+    doc.save("The_Rivals_Full_Notes.pdf");
+}
+
+initQuiz();
+</script>
+</body>
+</html>
